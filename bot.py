@@ -15,26 +15,8 @@ def make_request(method: str, params: dict = None):
     return res.json()
 
 
-def send_file(method: str, body: dict):
-    res = requests.post(
-        f"{BASE_URL}{method}",
-        data=body,
-    )
-    return res.json()
-
-
 def get_updates(offset: int = 0):
     return make_request("getUpdates", {"offset": offset})["result"]
-
-
-def get_file(file_id, file_path):
-    with open(f"media/{file_id}.jpg", "wb") as f:
-        f.write(
-            requests.get(
-                f"https://api.telegram.org/file/bot{TOKEN}/{file_path}"
-            ).content
-        )
-    return f"media/{file_id}.jpg"
 
 
 def main():
