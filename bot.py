@@ -15,6 +15,14 @@ def make_request(method: str, params: dict = None):
     return res.json()
 
 
+def send_file(method: str, data: dict):
+    res = requests.post(
+        f"{BASE_URL}{method}",
+        data=data,
+    )
+    return res.json()
+
+
 def get_updates(offset: int = 0):
     return make_request("getUpdates", {"offset": offset})["result"]
 
@@ -126,7 +134,7 @@ def main():
 
                             res = send_file(
                                 method="sendMediaGroup",
-                                body={
+                                data={
                                     "chat_id": chat_id,
                                     "media": json.dumps(photos),
                                 },
